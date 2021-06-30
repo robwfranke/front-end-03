@@ -74,6 +74,22 @@ button1 {
     flex-direction: column;
     align-content: flex-start;
     background-color: magenta;
+}
+
+
+.onSubmit{
+    /*color: rgba(0, 0, 0, 0);*/
+    display: flex;
+    flex-direction: column;
+
+    /*background-color: lightsalmon;*/
+    width: 150px;
+    height: 100px;
+    /*align-content: space-evenly;*/
+    /*align-items: stretch;*/
+    justify-content: space-evenly;
 
 
 }
+
+

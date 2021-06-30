@@ -43,6 +43,8 @@ function ProfilePage() {
     }, [updateFiles]);
 
 
+
+
     // ***********************************************************
 
     function keepName(file) {
@@ -147,7 +149,7 @@ function ProfilePage() {
         setChangeProfileData(true)
     }
 
-    function sendImageToBackend(){
+    function sendImageToBackend() {
         sendFileToBackend()
 
     }
@@ -198,31 +200,38 @@ function ProfilePage() {
 
 
                     {allImages.length === 0 &&
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input
-                            type="text"
-                            onChange={(e) => setNameFileToUpload(e.target.value)}
-                        />
+                    <div>
+                        <form
+                            className={styles.onSubmit}
+                            onSubmit={handleSubmit(onSubmit)}>
 
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setFileToUpload(e.target.files[0])}
-                        />
-                        <button
-                            type="submit"
+                            <input
 
-                        >
-                            SAVE!
-                        </button>
-                    </form>
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setFileToUpload(e.target.files[0])}
+                            />
+
+
+                            <button
+                                type="submit"
+
+                            >
+                                SAVE!
+                            </button>
+                        </form>
+
+
+                    </div>
                     }
 
+                    {allImages.length > 0 &&
                     <button
                         onClick={deletePicture}
                     >
                         delete plaatje
                     </button>
+                    }
 
                 </div>
 
