@@ -8,8 +8,15 @@ import jwt_decode from "jwt-decode";
 function ProfilePage() {
 
 
+
     const {handleSubmit} = useForm();
     const [message, setMessage] = useState();
+
+    const [errorSaveFile, setErrorSaveFile] = useState(false);
+    const [errorDeleteFile, setErrorDeleteFile] = useState(false);
+    const [errorGetFile, setErrorGetFile] = useState(false);/*als er tijd is dit toevoegen!*/
+    const [errorUpdateFile, setErrorUpdateFile] = useState(false);/*als er tijd is dit toevoegen!*/
+
     const [allImages, setAllImages] = useState([]);
     const [length, setLength] = useState(0);
     const [fileUrl, setFileUrl] = useState()
@@ -42,8 +49,6 @@ function ProfilePage() {
     }, [updateFiles]);
 
 
-
-
     async function deletePicture() {
         setFileUrl("")
         setShowFileFromKeepName(false)
@@ -58,11 +63,16 @@ function ProfilePage() {
             })
             setupdateFiles(true)
 
-            console.log("PLAATJE WEG")
-
 
         } catch (error) {
-            console.log("PLAATJE NIET WEG")
+
+
+            setErrorDeleteFile(true)
+            setTimeout(() => {
+                setErrorDeleteFile(false);
+            }, 3500);
+
+
         }
 
     }
@@ -75,16 +85,17 @@ function ProfilePage() {
 
             const response = await axios.get("http://localhost:8080/file/files")
 
-
-            setMessage("Files goed opgehaald uit de backend")
             setLength(response.data.length);
             setAllImages(response.data);
             setFileID(response.data[0].id)
 
 
         } catch (e) {
-            setMessage("Upload Fout")
-            console.log("Er is iets fout gegaan bij het ophalen")
+
+
+            console.log("Geen image of verkeerd endpoint. Status moet nog")
+
+
         }
 
 
@@ -114,7 +125,6 @@ function ProfilePage() {
                     "Content-Type": "multipart/form-data",
 
                     "Content-type": "application/json",
-
                 },
             });
 
@@ -122,27 +132,27 @@ function ProfilePage() {
             console.log("response", response)
         } catch (error) {
 
-            console.log("Foutje bij het versturen naar backend")
-
+            setErrorSaveFile(true)
+                        setTimeout(() => {
+               setErrorSaveFile(false);
+            }, 3500);
 
         }
 
     }
 
     function showUpdateDataProfile() {
-        if(changeProfileData){
+        if (changeProfileData) {
             setChangeProfileData(false)
-        }else{
+        } else {
             setChangeProfileData(true)
         }
-            }
+    }
 
 
     function onSubmit() {
 
-        console.log("IN onSubmit")
-        console.log("NameFileToUpload: ", nameFileToUpload)
-        console.log("FileToUpload: ", fileToUpload)
+
         sendFileToBackend();
     }
 
@@ -202,6 +212,14 @@ function ProfilePage() {
                             >
                                 SAVE!
                             </button>
+                            {errorSaveFile &&
+
+                            <div className={styles.warning}>Er is iets fout gegaan bij het ophalen
+                            Probeer het nog een keer!
+                           Of neem contact op met ons.</div>
+
+                            }
+
                         </form>
 
 
@@ -212,9 +230,20 @@ function ProfilePage() {
                     <button
                         onClick={deletePicture}
                     >
-                        delete plaatje
+                        verwijder profiel foto
                     </button>
                     }
+
+                    {errorDeleteFile &&
+
+                        <div className={styles.warning}>Er is iets fout gegaan bij het verwijderen
+                            Probeer het nog een keer!
+                            Of neem contact op met ons.</div>
+
+                    }
+
+
+
 
                 </div>
 
@@ -240,11 +269,11 @@ function ProfilePage() {
                             className={styles.button2}
                             onClick={showUpdateDataProfile}
                         >
-                            cancel</button>
+                            cancel
+                        </button>
 
 
                     </div>
-
 
 
                 </div>
@@ -252,7 +281,6 @@ function ProfilePage() {
 
 
             </div>
-
 
 
         </>
