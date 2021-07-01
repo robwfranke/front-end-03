@@ -10,7 +10,6 @@ function ProfilePage() {
 
 
     const {handleSubmit} = useForm();
-    const [message, setMessage] = useState();
 
     const [errorSaveFile, setErrorSaveFile] = useState(false);
     const [errorDeleteFile, setErrorDeleteFile] = useState(false);
