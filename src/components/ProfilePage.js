@@ -12,7 +12,6 @@ function ProfilePage() {
     const [message, setMessage] = useState();
     const [allImages, setAllImages] = useState([]);
     const [length, setLength] = useState(0);
-    const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState()
     const [fileID, setFileID] = useState()
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
@@ -44,21 +43,6 @@ function ProfilePage() {
 
 
 
-
-    // ***********************************************************
-
-    function keepName(file) {
-
-        console.log("file in keepName: ", file)
-
-        setFileName(file.name)
-        setFileUrl(file.url);
-        setFileID(file.id);
-        setShowFileFromKeepName(true)
-
-    }
-
-    // ***********************************************************
 
     async function deletePicture() {
         setFileUrl("")
@@ -145,14 +129,13 @@ function ProfilePage() {
 
     }
 
-    function updateDataProfile() {
-        setChangeProfileData(true)
-    }
-
-    function sendImageToBackend() {
-        sendFileToBackend()
-
-    }
+    function showUpdateDataProfile() {
+        if(changeProfileData){
+            setChangeProfileData(false)
+        }else{
+            setChangeProfileData(true)
+        }
+            }
 
 
     function onSubmit() {
@@ -177,7 +160,7 @@ function ProfilePage() {
                     Naam: Robbie
                     <button
                         className={styles.button1}
-                        onClick={updateDataProfile}
+                        onClick={showUpdateDataProfile}
                     >
                         verander gegevens</button>
 
@@ -253,10 +236,15 @@ function ProfilePage() {
 
                         <button className={styles.button2}>Update!</button>
 
-                        <button className={styles.button2}>cancel</button>
+                        <button
+                            className={styles.button2}
+                            onClick={showUpdateDataProfile}
+                        >
+                            cancel</button>
 
 
                     </div>
+
 
 
                 </div>
@@ -266,47 +254,6 @@ function ProfilePage() {
             </div>
 
 
-            {/*    <div className={styles.container}>*/}
-            {/*        <div className={styles.item}>Lorem ipsum dolor sit amet.</div>*/}
-
-
-            {/*        {allImages.length > 0 &&*/}
-
-
-            {/*        <div>*/}
-
-
-            {/*            <div className={styles.containerPlaatje}>*/}
-
-
-            {/*                <img*/}
-            {/*                    className={styles.plaatje}*/}
-            {/*                    alt={"Eerste file in fileinfos"}*/}
-            {/*                    src={allImages[0].url}*/}
-            {/*                />*/}
-
-
-            {/*            </div>*/}
-            {/*            <span>*/}
-            {/*                    <button>*/}
-            {/*                        klik mij*/}
-
-            {/*                    </button>*/}
-
-            {/*                </span>*/}
-
-            {/*        </div>*/}
-            {/*        }*/}
-
-
-            {/*        <div className={styles.item}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque eaque eius*/}
-            {/*            et*/}
-            {/*            nesciunt non quasi, quia ratione recusandae ut voluptas.*/}
-            {/*        </div>*/}
-
-            {/*        <div className={styles.item}>Lorem ipsum dolor sit amet.</div>*/}
-            {/*        <div className={styles.item}>Lorem ipsum dolor sit amet.</div>*/}
-            {/*    </div>*/}
 
         </>
 
