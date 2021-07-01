@@ -28,7 +28,6 @@ function ProfilePage() {
     const [changeProfileData, setChangeProfileData] = useState(false)
 
 
-    // *******************UseEffect********************
 
 
     useEffect(() => {
@@ -141,6 +140,13 @@ function ProfilePage() {
 
     }
 
+    async function updateProfileDataToBackend(){
+        console.log("HIER ACTIE UPDATE PROFILE")
+
+        setChangeProfileData(false)
+    }
+
+
     function showUpdateDataProfile() {
         if (changeProfileData) {
             setChangeProfileData(false)
@@ -181,7 +187,7 @@ function ProfilePage() {
                 {/*************  CENTER COLUMN   ***********/}
 
 
-                <div className={styles.containertest}>
+                <div className={styles.containerCenter}>
 
                     {allImages.length > 0 &&
                     <img
@@ -263,7 +269,13 @@ function ProfilePage() {
 
                     <div>
 
-                        <button className={styles.button2}>Update!</button>
+                        <button
+                            className={styles.button2}
+                            onClick={updateProfileDataToBackend}
+
+                        >
+                            Update!</button>
+
 
                         <button
                             className={styles.button2}
